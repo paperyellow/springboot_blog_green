@@ -2,11 +2,7 @@ package site.metacoding.red.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.red.domain.boards.Boards;
@@ -18,11 +14,11 @@ import site.metacoding.red.web.dto.request.boards.WriteDto;
 import site.metacoding.red.web.dto.response.boards.MainDto;
 import site.metacoding.red.web.dto.response.boards.PagingDto;
 
-@RequiredArgsConstructor 
+@RequiredArgsConstructor
 @Service
 public class BoardsService {
 
-	private final HttpSession session;
+	private final UsersDao usersDao;
 	private final BoardsDao boardsDao;
 
 	public PagingDto 게시글목록보기(Integer page, String keyword) {
@@ -30,6 +26,9 @@ public class BoardsService {
 			page = 0;
 		}
 		int startNum = page * 3;
+		System.out.println("==========");
+		System.out.println("keyword : "+keyword);
+		System.out.println("==========");
 		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword);
 		PagingDto pagingDto = boardsDao.paging(page, keyword);
 		if (boardsList.size() == 0)
@@ -40,17 +39,16 @@ public class BoardsService {
 		return pagingDto;
 	}
 
-	public Boards 게시글상세보기(@PathVariable Integer id) {
+	public Boards 게시글상세보기(Integer id) {
 		return boardsDao.findById(id);
 	}
 
 	public void 게시글수정하기(Integer id, UpdateDto updateDto) {
 		// 1. 영속화
 		Boards boardsPS = boardsDao.findById(id);
-		Users principal = (Users) session.getAttribute("principal");
-		// 비정상 요청 체크
-		if (boardsPS == null) {
-			//return "errors/badPage";
+		
+		if(boardsPS == null) {
+			// 이 부분은 나중에 처리!! (exception 처리하는 법 따로 배울 예정)
 		}
 
 		// 2. 변경
@@ -60,14 +58,13 @@ public class BoardsService {
 		boardsDao.update(boardsPS);
 	}
 
-	public void 게시글삭제하기(Integer id) {	
+	public void 게시글삭제하기(Integer id) {
 		Boards boardsPS = boardsDao.findById(id);
 		
-		// 비정상 요청 체크
-		if (boardsPS == null) { 
-			
+		if(boardsPS == null) {
+			// 이 부분은 나중에 처리!! (exception 처리하는 법 따로 배울 예정)
 		}
-
+		
 		boardsDao.deleteById(id);
 	}
 
