@@ -3,6 +3,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
+	<br/>
 	<form action="/boards/${boards.id}/update" method="post">
 		<div class="mb-3 mt-3">
 			<input type="text" class="form-control" placeholder="Enter title" value="${boards.title}" required="required" maxlength="50">
