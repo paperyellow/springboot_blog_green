@@ -74,12 +74,11 @@ function checkUsername() {
 	let username = $("#username").val();
 
 	// 2. Ajax 통신
-	$.ajax("/users/usernameSameCheck?username=" + username, {
+	$.ajax(`/users/usernameSameCheck?username=${username}`, {
 		type: "GET",
 		dataType: "json",
 		async: true
 	}).done((res) => {
-		console.log(res);
 		if (res.code == 1) { // 통신 성공
 			if (res.data == false) {
 				alert("아이디가 중복되지 않았습니다.");
@@ -94,7 +93,6 @@ function checkUsername() {
 }
 
 function login() {
-
 	let data = {
 		username: $("#username").val(),
 		password: $("#password").val()
