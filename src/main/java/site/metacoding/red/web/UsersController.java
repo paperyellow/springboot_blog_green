@@ -1,6 +1,7 @@
 package site.metacoding.red.web;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -44,7 +45,14 @@ public class UsersController {
 	}
 	
 	@GetMapping("/loginForm")
-	public String loginForm() {// 쿠키 배워보기
+	public String loginForm(Model model, HttpServletRequest request) {// 쿠키 배워보기
+		Cookie[] cookies = request.getCookies();	
+		for(Cookie cookie : cookies) {
+			System.out.println("=====================");
+			System.out.println(cookie.getName());
+			System.out.println(cookie.getValue());
+			System.out.println("=====================");
+		}
 		return "users/loginForm";
 	}
 	
