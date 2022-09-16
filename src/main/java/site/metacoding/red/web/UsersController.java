@@ -48,6 +48,9 @@ public class UsersController {
 	public String loginForm(Model model, HttpServletRequest request) {// 쿠키 배워보기
 		Cookie[] cookies = request.getCookies();	
 		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("username")) {
+				model.addAttribute(cookie.getName(), cookie.getValue());
+			}
 			System.out.println("=====================");
 			System.out.println(cookie.getName());
 			System.out.println(cookie.getValue());
