@@ -17,8 +17,9 @@
 	</c:if>
 
 	<br />
-	<div>
+	<div class="d-flex justify-content-between">
 		<h3>${boards.title}</h3>
+		<div>하트자리</div>
 	</div>
 	<hr />
 
